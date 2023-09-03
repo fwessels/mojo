@@ -405,9 +405,10 @@ implemented with `std::vector` style eager copying:
         var size: Int
         var capacity: Int
 
-    	fn __getitem__[life: Lifetime](self: inout[life], start: Int,
+    	# (or __getslice__ ?)
+    	fn __getitems__[life: Lifetime](self: inout[life], start: Int,
                             stop: Int) -> MutableArraySlice[type, life]:
-    		return MutableArraySlice(ptr, size)
+    		return MutableArraySlice(ptr+start, stop-start)
 ```
 
 By tying the lifetime of the produced slice to the lifetime of the Array `self`,
